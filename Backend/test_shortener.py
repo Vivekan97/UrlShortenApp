@@ -3,9 +3,8 @@ from shortener import get_long_url, get_shortened_url
 
 
 class MyTestCase(unittest.TestCase):
-    
     url = "www.google.com"
-    
+
     def test_get_shortened_url(self):
         self.assertIsNone(get_shortened_url(0))
         self.assertIs(get_shortened_url(""), "")

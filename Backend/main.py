@@ -15,11 +15,9 @@ def homepage():
 @app.route("/short", methods=["POST"])
 def short_url():
     source = request.get_json()
-    
     if "url" not in source.keys():
         return jsonify(input=None, result=None, message="Invalid URL. Cannot process !",
                        timestamp=datetime.now()), 400
-    
     source_url = source["url"]
     short = get_shortened_url(source_url)
     if short is None:
@@ -31,11 +29,9 @@ def short_url():
 @app.route("/long", methods=["POST"])
 def long_url():
     source = request.get_json()
-    
     if "url" not in source.keys():
         return jsonify(input=None, result=None, message="Invalid URL. Cannot process !",
                        timestamp=datetime.now()), 400
-    
     source_url = source["url"]
     long = get_long_url(source_url)
     if long is None:
