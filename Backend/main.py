@@ -33,7 +33,7 @@ def long_url():
     if "url" not in source.keys():
         return jsonify(input=None, result=None, message="Invalid URL. Cannot process !", timestamp=datetime.now()), 400
     
-    source_url = ["url"]
+    source_url = source["url"]
     long = get_long_url(source_url)
     if long is None:
         return jsonify(input=source_url, result=long, message="Invalid URL. Cannot process !", timestamp=datetime.now()), 400
