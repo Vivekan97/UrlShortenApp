@@ -1,15 +1,16 @@
 from datetime import datetime
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 from flask_cors import CORS
 from shortener import get_shortened_url, get_long_url
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path="",static_folder="static")
 CORS(app)
 
 
 @app.route("/", methods=["GET"])
 def homepage():
-    return jsonify(message="Welcome to URL Shortener")
+    return render_template("index.html")
+    # return jsonify(message="Welcome to URL Shortener")
 
 
 @app.route("/short", methods=["POST"])
