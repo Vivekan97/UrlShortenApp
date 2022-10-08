@@ -12,7 +12,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x, 16.x, 18.x]
+        node-version: [14.x]
     
     steps:
     - uses: actions/checkout@v3
@@ -25,6 +25,7 @@ jobs:
     - name: Build
       working-directory:  ./Frontend/urlshort/
       run: |
+        npm config set fund false
         npm install
         npm build
         npm test
