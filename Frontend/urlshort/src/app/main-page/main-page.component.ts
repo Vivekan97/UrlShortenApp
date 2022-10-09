@@ -27,7 +27,7 @@ export class MainPageComponent implements OnInit {
     this.url.getShortenedUrl(this.inputUrl).subscribe(
       {
         next:(value:ShortUrlResponse)=>{
-            console.log(value)
+            // console.log(value)
             this.resultUrl = value.result;
         },
         error:(err:any)=>{
@@ -50,7 +50,7 @@ export class MainPageComponent implements OnInit {
     this.url.getLongUrl(this.inputUrl).subscribe(
       {
         next:(value:ShortUrlResponse)=>{
-            console.log(value)
+            // console.log(value)
             this.resultUrl = value.result;
         },
         error:(err:any)=>{
