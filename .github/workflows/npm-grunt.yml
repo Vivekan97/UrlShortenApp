@@ -28,4 +28,3 @@ jobs:
         npm config set fund false
         npm install
         npm run build
-        grunt
