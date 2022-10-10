@@ -13,7 +13,7 @@ def homepage():
     # return jsonify(message="Welcome to URL Shortener")
 
 
-@app.route("/short", methods=["POST"])
+@app.route("/api/short", methods=["POST"])
 def short_url():
     source = request.get_json()
     if "url" not in source.keys():
@@ -27,7 +27,7 @@ def short_url():
     return jsonify(input=source_url, result=short, timestamp=datetime.now())
 
 
-@app.route("/long", methods=["POST"])
+@app.route("/api/long", methods=["POST"])
 def long_url():
     source = request.get_json()
     if "url" not in source.keys():
