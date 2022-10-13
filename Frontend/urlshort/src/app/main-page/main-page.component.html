@@ -1,47 +1,56 @@
-<div class="container-fluid w-100 h-100 bg-light">
+<!-- <div class="container-fluid w-100 h-100 bg-light"> -->
 
-    <div class="row py-3 bg-success">
+<!-- <div class="row py-3 bg-success d-flex justify-content-between" *ngIf="false">
+    <div class="col-4"></div>
+    <div class="col-4">
         <h4 class="text-center text-light">URL SHORTENER</h4>
     </div>
 
-    <div class="row m-3">
-        <div class="col-6 mx-auto my-3">
-            <!-- <label class="form-label m-0 p-0 fs-6" for="input-url">paste url below</label> -->
-            <input class="form-control" [(ngModel)]="inputUrl" placeholder="paste url here" type="text" name="inputUrl"
-                id="input-url">
-        </div>
-
-        <div class="d-flex justify-content-center my-2">
-            <!-- <div class="col-12"> -->
-            <button class="btn btn-primary" (click)="fetchShortUrl()" [disabled]="!inputUrl">
-                Shorten
-            </button>
-            <button class="btn btn-danger ms-3" (click)="fetchLongUrl()" [disabled]="!inputUrl">
-                Long Url
-            </button>
-            <!-- </div> -->
-        </div>
-
+    <div class="col-4 btn-group d-flex justify-content-between">
+        <button class="btn btn-sm btn-warning">Register</button>
+        <button class="btn btn-sm btn-light text-success ms-2">Log In</button>
+        <button class="btn btn-sm btn-danger ms-2">Log Out</button>
     </div>
+</div> -->
 
-    <ng-container *ngIf="isError || isLoading || resultUrl">
-        <div class="row m-3">
-            <ng-container *ngIf="isError">
-                <p class="text-danger text-center" *ngIf="!errorMessage">Failed processing !</p>
-                <p class="text-danger text-center">{{errorMessage}}</p>
-            </ng-container>
-            <ng-container *ngIf="isLoading">
-                <div class="d-flex justify-content-center">
-                    <div class="spinner-grow text-success" role="status">
-                    </div>
-                </div>
-            </ng-container>
-            <ng-container *ngIf="resultUrl">
-                <p class="text-start text-success">Result:</p>
-                <h5 class="text-start ms-5">{{resultUrl}}</h5>
-            </ng-container>
-        </div>
-    </ng-container>
-
-
+<!-- <div class="row m-3"> -->
+<div class="col-6 mx-auto my-3">
+    <!-- <label class="form-label m-0 p-0 fs-6" for="input-url">paste url below</label> -->
+    <input class="form-control" [(ngModel)]="inputUrl" placeholder="paste url here" type="text" name="inputUrl"
+        id="input-url">
 </div>
+
+<div class="d-flex justify-content-center my-2">
+    <!-- <div class="col-12"> -->
+    <button class="btn btn-primary" (click)="fetchShortUrl()" [disabled]="!inputUrl">
+        Shorten
+    </button>
+    <button class="btn btn-danger ms-3" (click)="fetchLongUrl()" [disabled]="!inputUrl">
+        Long Url
+    </button>
+    <!-- </div> -->
+</div>
+
+<!-- </div> -->
+
+<ng-container *ngIf="isError || isLoading || resultUrl">
+    <div class="row m-3">
+        <ng-container *ngIf="isError">
+            <p class="text-danger text-center" *ngIf="!errorMessage">Failed processing !</p>
+            <p class="text-danger text-center">{{errorMessage}}</p>
+        </ng-container>
+        <ng-container *ngIf="isLoading">
+            <div class="d-flex justify-content-center">
+                <div class="spinner-grow text-success" role="status">
+                </div>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="resultUrl">
+            <p class="text-start text-success">Result:</p>
+            <h5 class="text-start ms-5">{{resultUrl}}</h5>
+        </ng-container>
+    </div>
+</ng-container>
+
+
+<!-- </div> -->
