@@ -1,6 +1,8 @@
 from .extensions import jwt
 from .models import User
 
+
+# for using token required jwt decorator this function is needed
 @jwt.user_lookup_loader
 def user_lookup_callback(_jwt_header, jwt_data):
     identity = jwt_data["sub"]

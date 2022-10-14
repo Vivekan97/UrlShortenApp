@@ -1,23 +1,13 @@
 from datetime import datetime   # for getting the timestamp
 from flask import Blueprint, jsonify, request, render_template
 
-# from shortener file importing
 from .shortener import get_shortened_url, get_long_url
-# from jwt import 
+
 from flask_jwt_extended import jwt_required, current_user
 
-from .token_manager import user_lookup_callback
-
-# added CORS and static folder path is mentioned explicitly
-# app = Flask(__name__, static_url_path="", static_folder="static")
-# CORS(app)
+from .token_manager import user_lookup_callback  # for jwt_required it is must
     
 main = Blueprint("main", __name__)
-# jwt = JWTManager(main)
-
-# @main.route("/home", methods=["GET"])
-# def homepage():
-#     return render_template("index.html")
 
 
 # starting route to display the UI Page

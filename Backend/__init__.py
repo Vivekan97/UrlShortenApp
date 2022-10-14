@@ -11,11 +11,14 @@ def create_app():
     CORS(app)
     
     # for creating db instance it is must
+    # import before all blueprint then only it creates the table
     from .models import User
     
+    # registering the auth routes
     from .auth import auth as auth_blueprint
     app.register_blueprint(auth_blueprint)
     
+    # registering the url shorten routes
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
     
@@ -23,5 +26,8 @@ def create_app():
     with app.app_context():
         db.init_app(app)
         db.create_all()
+        
+    # initializing globally flask app
     jwt.init_app(app)    
+    
     return app
