@@ -1,24 +1,39 @@
-from datetime import datetime  # for getting the timestamp
-from flask import Flask, jsonify, request, render_template
-from flask_cors import CORS
+from datetime import datetime   # for getting the timestamp
+from flask import Blueprint, jsonify, request, render_template
+
 # from shortener file importing
-from shortener import get_shortened_url, get_long_url
+from .shortener import get_shortened_url, get_long_url
+# from jwt import 
+from flask_jwt_extended import jwt_required, current_user
+
+from .token_manager import user_lookup_callback
 
 # added CORS and static folder path is mentioned explicitly
-app = Flask(__name__, static_url_path="", static_folder="static")
-CORS(app)
+# app = Flask(__name__, static_url_path="", static_folder="static")
+# CORS(app)
+    
+main = Blueprint("main", __name__)
+# jwt = JWTManager(main)
 
+# @main.route("/home", methods=["GET"])
+# def homepage():
+#     return render_template("index.html")
 
 # starting route to display the UI Page
-@app.route("/", methods=["GET"])
+@main.route("/home", methods=["GET"])
 def homepage():
     return render_template("index.html")
 
 
 # for shortening the url by receiving the url in JSON request body
-@app.route("/short", methods=["POST"])
+@main.route("/api/short", methods=["POST"])
+@jwt_required()
 def short_url():
+    # print(current_user)
     source = request.get_json()
+    if not current_user:
+        return jsonify(message="UnAuthorized User",
+                       timestamp=datetime.now()), 401
     # checking if url key present in the request body
     if "url" not in source.keys():
         return jsonify(input=None, result=None, message="Invalid URL. Cannot process !",
@@ -34,8 +49,14 @@ def short_url():
 
 
 # for retrieving the short url by receiving the url in JSON request body
-@app.route("/long", methods=["POST"])
+@main.route("/api/long", methods=["POST"])
+@jwt_required()
 def long_url():
+
+    if not current_user:
+        return jsonify(message="UnAuthorized User",
+                       timestamp=datetime.now()), 401
+
     source = request.get_json()
     # checking if url key present in the request body
     if "url" not in source.keys():
@@ -51,5 +72,5 @@ def long_url():
     return jsonify(input=source_url, result=long, timestamp=datetime.now())
 
 
-if __name__ == "__main__":
-    app.run()
+# if __name__ == "__main__":
+#     main.run()

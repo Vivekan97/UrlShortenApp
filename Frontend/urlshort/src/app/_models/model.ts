@@ -3,3 +3,9 @@ export interface ShortUrlResponse{
     result:string;
     timestamp:string;
   }
+
+export interface LoginResponse{
+    access_token:string;
+    message:string;
+    timestamp:string;
+}  

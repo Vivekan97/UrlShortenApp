@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ShortUrlResponse } from '../_models/model';
+import { AuthService } from '../_services/auth.service';
 import { UrlShortService } from '../_services/url-short.service';
 
 @Component({
@@ -15,9 +17,13 @@ export class MainPageComponent implements OnInit {
   errorMessage!:string;
   resultUrl!:string;
 
-  constructor(private url:UrlShortService) { }
+  constructor(private url:UrlShortService, private router:Router,
+    private auth:AuthService) { }
 
   ngOnInit(): void {
+    if(!this.auth.checkStatus()){
+      this.router.navigate(["signin"])
+    }
   }
 
   fetchShortUrl(){

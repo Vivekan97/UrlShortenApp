@@ -4,3 +4,5 @@
 
 /.vs
 /.vscode
+instance/db.sqlite
+instance/sqlite.db
