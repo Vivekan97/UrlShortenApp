@@ -12,8 +12,15 @@
             <input class="form-control" formControlName="confirmPassword" type="password" placeholder="Min 6 characters"
                 name="confirmPassword" id="confirm-password">
             <div class="d-flex justify-content-center">
-                <button type="submit" class="btn btn-success my-3 mx-auto">Submit</button>
+                <button [disabled]="registerForm.invalid" type="submit" class="btn btn-success my-3 mx-auto">Submit</button>
             </div>
+            <ng-container *ngIf="errorMessage">
+                <p class="text-center text-danger">{{errorMessage}}</p>
+            </ng-container>
+            <ng-container *ngIf="successMessage">
+                <p class="text-center text-success">Registered Successfully.</p>
+                <a routerLink="/signin" class="text-center text-success">Proceed to Login.</a>
+            </ng-container>
         </form>
 
     </div>

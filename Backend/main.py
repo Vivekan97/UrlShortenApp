@@ -15,17 +15,21 @@ from .token_manager import user_lookup_callback
 main = Blueprint("main", __name__)
 # jwt = JWTManager(main)
 
+# @main.route("/home", methods=["GET"])
+# def homepage():
+#     return render_template("index.html")
+
 # starting route to display the UI Page
-@main.route("/", methods=["GET"])
+@main.route("/home", methods=["GET"])
 def homepage():
     return render_template("index.html")
 
 
 # for shortening the url by receiving the url in JSON request body
-@main.route("/short", methods=["POST"])
+@main.route("/api/short", methods=["POST"])
 @jwt_required()
 def short_url():
-    print(current_user)
+    # print(current_user)
     source = request.get_json()
     if not current_user:
         return jsonify(message="UnAuthorized User",
@@ -45,7 +49,7 @@ def short_url():
 
 
 # for retrieving the short url by receiving the url in JSON request body
-@main.route("/long", methods=["POST"])
+@main.route("/api/long", methods=["POST"])
 @jwt_required()
 def long_url():
 

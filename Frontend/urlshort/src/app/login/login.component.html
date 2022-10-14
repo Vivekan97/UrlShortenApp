@@ -9,8 +9,11 @@
             <input formControlName="password" class="form-control" type="password" placeholder="Min 6 characters"
                 name="password" id="login-password">
             <div class="d-flex justify-content-center">
-                <button type="submit" class="btn btn-success my-3 mx-auto">Submit</button>
+                <button type="submit" [disabled]="loginForm.invalid" class="btn btn-success my-3 mx-auto">Submit</button>
             </div>
+            <ng-container *ngIf="errorMessage">
+                <p class="text-center text-danger">{{errorMessage}}</p>
+            </ng-container>
         </form>
 
     </div>

@@ -1,14 +1,14 @@
 <div class="row">
     <div class="col-4">
-        <button class="btn btn-sm btn-light  text-success ms-2" routerLink="/">Home</button>
+        <button *ngIf="activeUser | async" class="btn btn-sm btn-light  text-success ms-2" routerLink="/">Home</button>
     </div>
     <div class="col-4">
-        <h4 class="text-center text-light" routerLink="/">URL SHORTENER</h4>
+        <h4 class="text-center text-light">URL SHORTENER</h4>
     </div>
 
     <div class="col-4 d-flex justify-content-end">
-        <button class="btn btn-sm btn-warning" routerLink="/register">Register</button>
-        <button class="btn btn-sm btn-light text-success ms-2" routerLink="/signin">Log In</button>
-        <button class="btn btn-sm btn-danger ms-2">Log Out</button>
+        <button *ngIf="!(activeUser | async)" class="btn btn-sm btn-warning" routerLink="/register">Register</button>
+        <button *ngIf="!(activeUser | async)" class="btn btn-sm btn-light text-success ms-2" routerLink="/signin">Log In</button>
+        <button *ngIf="activeUser | async" class="btn btn-sm btn-danger ms-2" (click)="logout()">Log Out</button>
     </div>
 </div>
