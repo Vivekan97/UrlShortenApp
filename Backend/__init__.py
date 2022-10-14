@@ -10,6 +10,7 @@ def create_app():
     app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///sqlite.db"
     CORS(app)
     
+    from .models import User
     
     from .auth import auth as auth_blueprint
     app.register_blueprint(auth_blueprint)
@@ -20,5 +21,4 @@ def create_app():
     with app.app_context():
         db.init_app(app)
         db.create_all()
-
     return app
