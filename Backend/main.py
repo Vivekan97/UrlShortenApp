@@ -19,6 +19,7 @@ main = Blueprint("main", __name__)
 # def homepage():
 #     return render_template("index.html")
 
+
 # starting route to display the UI Page
 @main.route("/home", methods=["GET"])
 def homepage():

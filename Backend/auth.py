@@ -68,3 +68,7 @@ def get_login():
 @auth.route("/register", methods=["GET"])
 def get_register():
     return render_template("index.html")
+
+@auth.route("/", methods=["GET"])
+def get_home():
+    return redirect(url_for("auth.get_login"))    

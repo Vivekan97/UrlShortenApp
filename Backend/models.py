@@ -5,12 +5,11 @@ from datetime import datetime, timedelta
 
 class User(db.Model):
 
-    __tablename__="users"
+    __tablename__ = "users"
     
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(100), unique=True, nullable=False)
     password = db.Column(db.String(100), nullable=False)
-
     
     def encode_auth_token(self, user_id):
         try:
@@ -19,7 +18,7 @@ class User(db.Model):
                 'iat': datetime.utcnow(),
                 'sub': user_id
             }
-            return encode(payload,SECRET_KEY,algorithm='HS256')
+            return encode(payload, SECRET_KEY, algorithm='HS256')
         except Exception as e:
             return e
         
@@ -32,3 +31,4 @@ class User(db.Model):
             return 'Signature expired. Please log in again.'
         except InvalidTokenError:
             return 'Invalid token. Please log in again.'
+        

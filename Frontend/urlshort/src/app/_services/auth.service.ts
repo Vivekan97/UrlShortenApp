@@ -63,7 +63,7 @@ export class AuthService {
   logOut(){
     this.isUserLoggedIn.next(false);
     localStorage.removeItem("accessToken");
-    this.router.navigate(["/"])
+    this.router.navigate(["/signin"])
   }
 
   get userStatus():Observable<boolean>{
