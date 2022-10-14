@@ -1,19 +1,20 @@
 from datetime import datetime
-import json 
 from flask import Blueprint, redirect, url_for, request,jsonify
 from .extensions import SECRET_KEY, db
 from .models import User
 from werkzeug.security import generate_password_hash, check_password_hash
-
 import jwt
 
-auth = Blueprint("auth", __name__)
+auth = Blueprint("auth", __name__, url_prefix="/auth")
 
 
 @auth.route("/login", methods=["POST"])
 def login():
     email = request.form.get("email")
     password = request.form.get("password")
+    
+    if not email or not password:
+        return jsonify(timestamp=datetime.now(),message="Invalid Request"), 400
     
     user = User.query.filter_by(email=email).first()
     
@@ -34,6 +35,9 @@ def register():
     email = request.form.get("email")
     password = request.form.get("password")
     
+    if not email or not password:
+        return jsonify(timestamp=datetime.now(),message="Invalid Request"), 400
+
     user = User.query.filter_by(email=email).first()
     
     if user:
@@ -53,6 +57,6 @@ def decode():
     if not token:
         return "Invalid", 404
     
-    decoded = jwt.decode(token,SECRET_KEY,algorithms=["HS256"])
+    decoded = jwt.decode(token, SECRET_KEY, algorithms=["HS256"])
     print(decoded)
     return jsonify(result=decoded)

@@ -1,11 +1,12 @@
 from datetime import datetime   # for getting the timestamp
 from flask import Blueprint, jsonify, request, render_template
-from flask_cors import CORS
+
 # from shortener file importing
 from .shortener import get_shortened_url, get_long_url
 # from jwt import 
-from flask_jwt_extended import JWTManager, jwt_required, get_jwt_identity
-from .token_manager import token_required
+from flask_jwt_extended import jwt_required, current_user
+
+from .token_manager import user_lookup_callback
 
 # added CORS and static folder path is mentioned explicitly
 # app = Flask(__name__, static_url_path="", static_folder="static")
@@ -22,10 +23,13 @@ def homepage():
 
 # for shortening the url by receiving the url in JSON request body
 @main.route("/short", methods=["POST"])
-# @jwt_required
-@token_required
+@jwt_required()
 def short_url():
+    print(current_user)
     source = request.get_json()
+    if not current_user:
+        return jsonify(message="UnAuthorized User",
+                       timestamp=datetime.now()), 401
     # checking if url key present in the request body
     if "url" not in source.keys():
         return jsonify(input=None, result=None, message="Invalid URL. Cannot process !",
@@ -42,7 +46,13 @@ def short_url():
 
 # for retrieving the short url by receiving the url in JSON request body
 @main.route("/long", methods=["POST"])
+@jwt_required()
 def long_url():
+
+    if not current_user:
+        return jsonify(message="UnAuthorized User",
+                       timestamp=datetime.now()), 401
+
     source = request.get_json()
     # checking if url key present in the request body
     if "url" not in source.keys():

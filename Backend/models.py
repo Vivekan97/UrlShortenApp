@@ -4,6 +4,8 @@ from datetime import datetime, timedelta
 
 
 class User(db.Model):
+
+    __tablename__="users"
     
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(100), unique=True, nullable=False)
@@ -13,10 +15,10 @@ class User(db.Model):
     def encode_auth_token(self, user_id):
         try:
             payload = {
-                'exp': datetime.utcnow() + timedelta(days=0, seconds=500),
+                'exp': datetime.utcnow() + timedelta(days=1),
                 'iat': datetime.utcnow(),
-                'id': user_id
-                }
+                'sub': user_id
+            }
             return encode(payload,SECRET_KEY,algorithm='HS256')
         except Exception as e:
             return e
@@ -25,7 +27,7 @@ class User(db.Model):
     def decode_auth_token(auth_token):
         try:
             payload = decode(auth_token, SECRET_KEY)
-            return payload['id']
+            return payload['sub']
         except ExpiredSignatureError:
             return 'Signature expired. Please log in again.'
         except InvalidTokenError:

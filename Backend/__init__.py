@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_cors import CORS
-from .extensions import db, SECRET_KEY
+from .extensions import db, SECRET_KEY, jwt
 
 
 def create_app():
@@ -10,6 +10,7 @@ def create_app():
     app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///sqlite.db"
     CORS(app)
     
+    # for creating db instance it is must
     from .models import User
     
     from .auth import auth as auth_blueprint
@@ -18,7 +19,9 @@ def create_app():
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
     
+    # creating db if not exist
     with app.app_context():
         db.init_app(app)
         db.create_all()
+    jwt.init_app(app)    
     return app
