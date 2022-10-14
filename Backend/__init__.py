@@ -7,12 +7,9 @@ def create_app():
     
     app = Flask(__name__, static_url_path="", static_folder="static")
     app.config["SECRET_KEY"] = SECRET_KEY
-    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db.sqlite"
+    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///sqlite.db"
     CORS(app)
     
-    with app.app_context():
-        db.init_app(app)
-        db.create_all()
     
     from .auth import auth as auth_blueprint
     app.register_blueprint(auth_blueprint)
@@ -20,4 +17,8 @@ def create_app():
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
     
+    with app.app_context():
+        db.init_app(app)
+        db.create_all()
+
     return app
