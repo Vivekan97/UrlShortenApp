@@ -1,10 +1,17 @@
 import unittest
-from shortener import get_long_url, get_shortened_url
+import os
+import sys
+try:
+    from shortener import get_long_url, get_shortened_url
+except ModuleNotFoundError as e:
+    sys.path.append(os.getcwd())
+    from shortener import get_long_url, get_shortened_url
+
 
 
 class MyTestCase(unittest.TestCase):
     url = "http://www.google.com"
-
+    print(os.getcwd())
     def test_get_shortened_url(self):
         self.assertIsNone(get_shortened_url(0))
         self.assertIs(get_shortened_url(""), "")
